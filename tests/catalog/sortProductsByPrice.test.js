@@ -8,9 +8,9 @@ describe('sortProductsByPrice', () => {
     ).toEqual([3, 6, 5, 4, 2, 1]);
   });
   test('все товары без направления сортируются как [3, 6, 5, 4, 2, 1]', () => {
-    expect(
-      sortProductsByPrice(products, 'asc').map((product) => product.id)
-    ).toEqual([3, 6, 5, 4, 2, 1]);
+    expect(sortProductsByPrice(products).map((product) => product.id)).toEqual([
+      3, 6, 5, 4, 2, 1
+    ]);
   });
   test("товары [1, 3, 4] c 'asc' сортируются как [3, 4, 1]", () => {
     const subset = products.filter(({ id }) => [1, 3, 4].includes(id));
@@ -35,7 +35,21 @@ describe('sortProductsByPrice', () => {
       sortProductsByPrice(subset, 'desc').map((product) => product.id)
     ).toEqual([2, 5, 6]);
   });
-  test.todo("'asc' не меняет исходный массив [1, 3, 4]");
-  test.todo("'desc' не меняет исходный массив [1, 3, 4]");
-  test.todo('направление по умолчанию не меняет исходный массив всех товаров');
+  test("'asc' не меняет исходный массив [1, 3, 4]", () => {
+    const subset = products.filter(({ id }) => [1, 3, 4].includes(id));
+
+    sortProductsByPrice(subset, 'asc');
+    expect(subset.map((product) => product.id)).toEqual([1, 3, 4]);
+  });
+  test("'desc' не меняет исходный массив [1, 3, 4]", () => {
+    const subset = products.filter(({ id }) => [1, 3, 4].includes(id));
+
+    sortProductsByPrice(subset, 'desc');
+    expect(subset.map((product) => product.id)).toEqual([1, 3, 4]);
+  });
+  test('направление по умолчанию не меняет исходный массив всех товаров', () => {
+    sortProductsByPrice(products);
+
+    expect(products.map((product) => product.id)).toEqual([1, 2, 3, 4, 5, 6]);
+  });
 });
