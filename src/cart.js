@@ -43,8 +43,8 @@ function changeQuantity(cart, productId, newQuantity) {
     item.id === productId ? { ...item, quantity: newQuantity } : item
   );
 }
-function removeFromCart() {
-  return notImplemented();
+function removeFromCart(cart, productId) {
+  return cart.filter((item) => item.id !== productId);
 }
 function calculateCartSubtotal() {
   return notImplemented();
